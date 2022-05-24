@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    position: relative;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#scoreContainer {
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    color: white;
+    font-size: 30px;
+    margin: 0;
+}
+
+#results {
+    position: absolute;
+    inset: 0;
+    display: none;
+    background: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+}
+
+#results h2 {
+    font-size: 40px;
+    margin: 0;
+}
+
+#results h3 {
+    font-size: 30px;
+    margin: 36px 0 0;
+    background: #F7D716;
+    color: black;
+    border-radius: 4px;
+    padding: 10px 24px;
+    font-weight: bold;
+
+}
+
+#results #restart {
+    font-size: 20px;
+    margin-top: 20px;
+    color:white;
+}
+
+#difficulty {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    color: white;
+    font-size: 20px;
+}
+
+#difficulty span {
+    padding: 5px 10px;
+    border:.1rem solid white;
+    margin-left: 10px;
+    border-radius: 4px;
+    opacity: .2;
+    cursor: pointer;
+}
+
+#play {
+    display: block;
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    left: 50%;
+    color: #ffffff;
+    transform: translateX(-50%);
+    bottom: 50px;
+    background: linear-gradient(to right, #4d4d4d 0, white 10%, #4d4d4d 20%) 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    animation-fill-mode: forwards;
+    -webkit-text-size-adjust: none;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 0
+    }
+    60% {
+        background-position: 180px
+    }
+    100% {
+        background-position: 180px
+    }
+}
