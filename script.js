@@ -112,38 +112,37 @@ function resetScene(diff) {
 }
 
 window.addEventListener("click", () => {
-    if (!gameEnded) {
-        const topLayer = stack[stack.length - 1];
-        const prevLayer = stack[stack.length - 2];
-        const direction = topLayer.direction
+    if (gameEnded) return
+    const topLayer = stack[stack.length - 1];
+    const prevLayer = stack[stack.length - 2];
+    const direction = topLayer.direction
 
-        const delta = topLayer.threejs.position[direction] - prevLayer.threejs.position[direction];
-        const overhangSize = Math.abs(delta);
-        const size = direction === 'x' ? topLayer.width : topLayer.depth;
-        const overlap = size - overhangSize;
-        if (overlap > 0) {
-            slice.play()
-            cutBox(topLayer, overlap, size, delta)
-            // Calculate overhang
-            const overhangShift = (overlap / 2 + overhangSize / 2) * Math.sign(delta)
-            const overhangX = direction === 'x' ? topLayer.threejs.position.x + overhangShift : topLayer.threejs.position.x;
-            const overhangZ = direction === 'z' ? topLayer.threejs.position.z + overhangShift : topLayer.threejs.position.z;
+    const size = direction === 'x' ? topLayer.width : topLayer.depth;
+    const delta = topLayer.threejs.position[direction] - prevLayer.threejs.position[direction];
+    const overhangSize = Math.abs(delta);
+    const overlap = size - overhangSize;
+    if (overlap > 0) {
+        slice.play()
+        cutBox(topLayer, overlap, size, delta)
+        // Calculate overhang
+        const overhangShift = (overlap / 2 + overhangSize / 2) * Math.sign(delta)
+        const overhangX = direction === 'x' ? topLayer.threejs.position.x + overhangShift : topLayer.threejs.position.x;
+        const overhangZ = direction === 'z' ? topLayer.threejs.position.z + overhangShift : topLayer.threejs.position.z;
 
-            const overhangWidth = direction === 'x' ? overhangSize : topLayer.width;
-            const overhangDepth = direction === 'x' ? overhangSize : topLayer.depth;
+        const overhangWidth = direction === 'x' ? overhangSize : topLayer.width;
+        const overhangDepth = direction === 'z' ? overhangSize : topLayer.depth;
 
-            addOverhang(overhangX, overhangZ, overhangWidth, overhangDepth)
+        addOverhang(overhangX, overhangZ, overhangWidth, overhangDepth)
 
-            // Next layer
-            const nextX = direction === "x" ? topLayer.threejs.position.x : -10;
-            const nextZ = direction === "z" ? topLayer.threejs.position.z : -10;
-            const newWidth = topLayer.width;
-            const newDepth = topLayer.depth;
-            const nextDirection = direction === 'x' ? 'z' : 'x';
-            if (scoreElement) scoreElement.innerText = stack.length - 1;
-            addLayer(nextX, nextZ, newWidth, newDepth, nextDirection)
-        } else missedTheSpot()
-    }
+        // Next layer
+        const nextX = direction === "x" ? topLayer.threejs.position.x : -10;
+        const nextZ = direction === "z" ? topLayer.threejs.position.z : -10;
+        const newWidth = topLayer.width;
+        const newDepth = topLayer.depth;
+        const nextDirection = direction === 'x' ? 'z' : 'x';
+        if (scoreElement) scoreElement.innerText = stack.length - 1;
+        addLayer(nextX, nextZ, newWidth, newDepth, nextDirection)
+    } else missedTheSpot()
 })
 
 function animation() {
